@@ -1,0 +1,24 @@
+{
+  "name": "pruebajsonserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch js/main.js",
+    "clientes" : "json-server js/db/clientes.json -p 5501",
+    "detalle_pedido" : "json-server js/db/detalle_pedido.json -p 5502",
+    "empleado" : "json-server js/db/empleado.json -p 5503",
+    "gama" : "json-server js/db/gama.json -p 5504",
+    "oficina" : "json-server js/db/oficina.json -p 5505",
+    "pago" : "json-server js/db/pago.json -p 5506",
+    "pedido" : "json-server js/db/pedido.json -p 5507",
+    "product" : "json-server js/db/product.json -p 5508"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^1.0.0-alpha.23"
+  }
+}
