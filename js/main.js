@@ -13,6 +13,10 @@ import{
     getClientsNameFromSpain
 } from "./modules/client.js"
 
+import {
+    getAllPosibleRequestsStatus
+} from "./modules/requests.js"
+
 //console.log(await getAllOficceAndCodeCity())
 
 //console.log(await getAllCityAndMobileInSpain())
@@ -23,6 +27,8 @@ import{
 
 //console.log(await getFullNameIfNotRepresentanteVentas())
 
-console.log(await getClientsNameFromSpain())
+//console.log(await getClientsNameFromSpain())
+
+console.log(await getAllPosibleRequestsStatus())
 
 
