@@ -31,3 +31,33 @@ export const getClientCodeIfPayInYear = async(year) =>{
 
     return clientsCode
 }
+
+//9. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
+export const getOrderCodeClientCodeDateOfDelayedOrders = async() =>{
+    let res = await fetch("http://localhost:5507/requests")
+    let data = await res.json()
+
+    let dataUpdate = data.filter(pedido =>{
+
+        if(pedido.date_delivery != null){
+            let fechaEsperada = pedido.date_wait
+            fechaEsperada = fechaEsperada.split("-")
+            fechaEsperada = new Date(fechaEsperada[0], fechaEsperada[1]-1, fechaEsperada[2])
+
+            let fechaEntrega = pedido.date_delivery
+            fechaEntrega = fechaEntrega.split("-")
+            fechaEntrega = new Date(fechaEntrega[0], fechaEntrega[1]-1, fechaEntrega[2])
+
+            if(fechaEntrega > fechaEsperada){
+                return{
+                    code_request: pedido.code_request,
+                    code_client: pedido.code_client,
+                    date_wait: pedido.date_wait,
+                    date_delivery: pedido.date_delivery
+                }
+            }
+        }
+    })
+
+    return dataUpdate
+}
