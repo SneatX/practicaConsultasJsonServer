@@ -14,7 +14,8 @@ import{
 } from "./modules/client.js"
 
 import {
-    getAllPosibleRequestsStatus
+    getAllPosibleRequestsStatus,
+    getClientCodeIfPayInYear
 } from "./modules/requests.js"
 
 //console.log(await getAllOficceAndCodeCity())
@@ -29,6 +30,8 @@ import {
 
 //console.log(await getClientsNameFromSpain())
 
-console.log(await getAllPosibleRequestsStatus())
+//console.log(await getAllPosibleRequestsStatus())
+
+console.log(await getClientCodeIfPayInYear(2008))
 
 
