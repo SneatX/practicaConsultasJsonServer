@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch js/main.js",
+    "server": "json-server js/db/clientes.json -p 5501 & json-server js/db/detalle_pedido.json -p 5502 & json-server js/db/empleado.json -p 5503 & json-server js/db/gama.json -p 5504 & json-server js/db/oficina.json -p 5505 & json-server js/db/pago.json -p 5506 & json-server js/db/pedido.json -p 5507 & json-server js/db/product.json -p 5508",
+
     "clientes" : "json-server js/db/clientes.json -p 5501",
     "detalle_pedido" : "json-server js/db/detalle_pedido.json -p 5502",
     "empleado" : "json-server js/db/empleado.json -p 5503",

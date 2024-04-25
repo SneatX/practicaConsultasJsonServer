@@ -89,3 +89,17 @@ export const getOrderCodeClientCodeDateOf2DaysBeforeDeploy = async() =>{
     return dataUpdate
 }
 
+//11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009
+
+export const getAllRequestsIfDeclinedIn2009 = async() =>{    
+    let res = await fetch("http://localhost:5507/requests?status=Rechazado")
+    let data = await res.json()
+    let pedidosRechazados = data.filter(pedido =>{
+        let año = new Date(pedido.date_request).getFullYear()
+        if(año === 2009) {
+            return pedido
+        }
+    })
+    return pedidosRechazados
+}   
+
