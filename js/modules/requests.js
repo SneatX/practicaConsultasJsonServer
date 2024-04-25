@@ -61,3 +61,31 @@ export const getOrderCodeClientCodeDateOfDelayedOrders = async() =>{
 
     return dataUpdate
 }
+
+//10. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
+export const getOrderCodeClientCodeDateOf2DaysBeforeDeploy = async() =>{
+    let res = await fetch("http://localhost:5507/requests")
+    let data = await res.json()
+
+    let dataUpdate = data.filter(pedido =>{
+        if(pedido.date_delivery != null){
+            let [añoEsperado, mesEsperado, diaEsperado] = pedido.date_wait.split('-')
+            let [añoLlegada, mesLlegada, diaLlegada]  = pedido.date_delivery.split('-')
+            let fechaEsperada = new Date(añoEsperado, mesEsperado-1, diaEsperado)
+            let fechaEntrega = new Date(añoLlegada, mesLlegada-1, diaLlegada)
+
+            let diferencia = fechaEntrega-fechaEsperada
+            diferencia = diferencia/(1000*3600*24)
+            if(diferencia <= -2){
+                return{
+                    code_request: pedido.code_request,
+                    code_client: pedido.code_client,
+                    date_wait: pedido.date_wait,
+                    date_delivery: pedido.date_delivery
+                }
+            }
+        }
+    })
+    return dataUpdate
+}
+

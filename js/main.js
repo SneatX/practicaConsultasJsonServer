@@ -16,7 +16,8 @@ import{
 import {
     getAllPosibleRequestsStatus,
     getClientCodeIfPayInYear,
-    getOrderCodeClientCodeDateOfDelayedOrders
+    getOrderCodeClientCodeDateOfDelayedOrders,
+    getOrderCodeClientCodeDateOf2DaysBeforeDeploy
 } from "./modules/requests.js"
 
 //console.log(await getAllOficceAndCodeCity())
@@ -35,6 +36,9 @@ import {
 
 //console.log(await getClientCodeIfPayInYear(2008))
 
-console.log(await getOrderCodeClientCodeDateOfDelayedOrders())
+//console.log(await getOrderCodeClientCodeDateOfDelayedOrders())
+
+console.log(await getOrderCodeClientCodeDateOf2DaysBeforeDeploy())
+
 
 
