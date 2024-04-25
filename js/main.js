@@ -22,6 +22,10 @@ import {
     getAllRequestIfDeliveyInJanuary
 } from "./modules/requests.js"
 
+import {
+    getAllPaypalPaymentsIfYearIs2008
+} from "./modules/payments.js"
+
 //console.log(await getAllOficceAndCodeCity())
 
 //console.log(await getAllCityAndMobileInSpain())
@@ -44,7 +48,9 @@ import {
 
 //console.log(await getAllRequestsIfDeclinedIn2009())
 
-console.log(await getAllRequestIfDeliveyInJanuary())
+//console.log(await getAllRequestIfDeliveyInJanuary())
+
+console.log(await getAllPaypalPaymentsIfYearIs2008())
 
 
 
