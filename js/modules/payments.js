@@ -24,3 +24,18 @@ export const getAllPaypalPaymentsIfYearIs2008 = async() =>{
     return pagos
 }
 
+//14. Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.
+export const getAllPosiblePayments = async() =>{
+    let res = await fetch("http://localhost:5506/payments")
+    let data = await res.json()
+
+    let posiblesMetodos = []
+
+    data.forEach(pedido => {
+        if(!posiblesMetodos.includes(pedido.payment)){
+            posiblesMetodos.push(pedido.payment)
+        }
+    });
+    return posiblesMetodos
+}
+

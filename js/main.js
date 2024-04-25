@@ -23,7 +23,8 @@ import {
 } from "./modules/requests.js"
 
 import {
-    getAllPaypalPaymentsIfYearIs2008
+    getAllPaypalPaymentsIfYearIs2008,
+    getAllPosiblePayments
 } from "./modules/payments.js"
 
 //console.log(await getAllOficceAndCodeCity())
@@ -50,7 +51,10 @@ import {
 
 //console.log(await getAllRequestIfDeliveyInJanuary())
 
-console.log(await getAllPaypalPaymentsIfYearIs2008())
+//console.log(await getAllPaypalPaymentsIfYearIs2008())
+
+console.log(await getAllPosiblePayments())
+
 
 
 
