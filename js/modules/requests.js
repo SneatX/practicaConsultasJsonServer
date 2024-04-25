@@ -103,3 +103,20 @@ export const getAllRequestsIfDeclinedIn2009 = async() =>{
     return pedidosRechazados
 }   
 
+//12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
+
+export const getAllRequestIfDeliveyInJanuary = async() =>{
+    let res = await fetch("http://localhost:5507/requests?status=Entregado")
+    let data = await res.json()
+    let pedidosEntregados = []
+
+    data.forEach(pedido =>{
+        if(pedido.date_delivery != null){
+            let [ ,month, ] = pedido.date_delivery.split("-")
+            month === "01" ? pedidosEntregados.push(pedido): month
+        }
+    })
+
+    return pedidosEntregados
+}
+
