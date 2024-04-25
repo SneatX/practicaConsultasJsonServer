@@ -10,7 +10,8 @@ import{
 } from "./modules/employees.js"
 
 import{
-    getClientsNameFromSpain
+    getClientsNameFromSpain,
+    getAllClientsFromMadridWithManagerCode11or30
 } from "./modules/client.js"
 
 import {
@@ -59,7 +60,9 @@ import {
 
 //console.log(await getAllPosiblePayments())
 
-console.log(await getAllOrnamentalesProductsWithMoreOf100Units())
+//console.log(await getAllOrnamentalesProductsWithMoreOf100Units())
+
+console.log(await getAllClientsFromMadridWithManagerCode11or30())
 
 
 
