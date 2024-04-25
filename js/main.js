@@ -27,6 +27,10 @@ import {
     getAllPosiblePayments
 } from "./modules/payments.js"
 
+import {
+    getAllOrnamentalesProductsWithMoreOf100Units
+} from "./modules/product.js"
+
 //console.log(await getAllOficceAndCodeCity())
 
 //console.log(await getAllCityAndMobileInSpain())
@@ -53,7 +57,9 @@ import {
 
 //console.log(await getAllPaypalPaymentsIfYearIs2008())
 
-console.log(await getAllPosiblePayments())
+//console.log(await getAllPosiblePayments())
+
+console.log(await getAllOrnamentalesProductsWithMoreOf100Units())
 
 
 
