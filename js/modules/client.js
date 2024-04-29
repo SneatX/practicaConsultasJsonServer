@@ -76,8 +76,30 @@ export const getClientsWithPaymentsNameAndManagerNames = async() =>{
     return clientesConPagos
 }
 
-export const getClientAndManagerByCode = async (cod) =>{
-    let resCliente = await fetch(`http://localhost:5501/clients?client_code=${cod}`)
-    let cliente = await resCliente.json()
-    return  cliente
+// 3. Muestra el nombre de los clientes que **no** hayan realizado pagos junto con el nombre de sus representantes de ventas.
+
+export const getAllClientsNameAndManagerNameWithoutPayments = async() =>{
+    let resPagos = await fetch("http://localhost:5506/payments")
+    let dataPagos = await resPagos.json()
+    let codClientesConPago = new Set()
+    let clientesSinPago = []
+
+    for(let pago of dataPagos){
+        codClientesConPago.add(pago.code_client)
+    }
+
+    let dataClientes = await(await fetch("http://localhost:5501/clients")).json()
+
+    for(let cliente of dataClientes){
+        if(!codClientesConPago.has(cliente.client_code)){
+            let [empledo] = await getEmployeeByCode(cliente.code_employee_sales_manager)
+            clientesSinPago.push({
+                client_name: cliente.client_name,
+                employee_fullname: `${empledo.name} ${empledo.lastname1} ${empledo.lastname2}`
+            })
+        }
+    }
+
+    return clientesSinPago
+    
 }

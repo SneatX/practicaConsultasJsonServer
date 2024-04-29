@@ -13,7 +13,8 @@ import{
     getClientsNameFromSpain,
     getAllClientsFromMadridWithManagerCode11or30,
     getAllNameOfClientAndManager,
-    getClientsWithPaymentsNameAndManagerNames
+    getClientsWithPaymentsNameAndManagerNames,
+    getAllClientsNameAndManagerNameWithoutPayments
 } from "./modules/client.js"
 
 import {
@@ -66,10 +67,13 @@ import {
 
 //console.log(await getAllClientsFromMadridWithManagerCode11or30())
 
+//----------Consultas multitabla----------//
 
 //console.log(await getAllNameOfClientAndManager())
 
-console.log(await getClientsWithPaymentsNameAndManagerNames())
+//console.log(await getClientsWithPaymentsNameAndManagerNames())
+
+console.log(await getAllClientsNameAndManagerNameWithoutPayments())
 
 
 
