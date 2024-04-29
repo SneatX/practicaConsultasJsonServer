@@ -14,7 +14,8 @@ import{
     getAllClientsFromMadridWithManagerCode11or30,
     getAllNameOfClientAndManager,
     getClientsWithPaymentsNameAndManagerNames,
-    getAllClientsNameAndManagerNameWithoutPayments
+    getAllClientsNameAndManagerNameWithoutPayments,
+    getAllClientsNameManagerNameAndCityIfHavePayments
 } from "./modules/client.js"
 
 import {
@@ -73,7 +74,9 @@ import {
 
 //console.log(await getClientsWithPaymentsNameAndManagerNames())
 
-console.log(await getAllClientsNameAndManagerNameWithoutPayments())
+//console.log(await getAllClientsNameAndManagerNameWithoutPayments())
+
+console.log(await getAllClientsNameManagerNameAndCityIfHavePayments())
 
 
 

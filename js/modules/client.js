@@ -2,6 +2,10 @@ import {
     getEmployeeByCode
 } from "./employees.js"
 
+import {
+    getOfficeByCode
+} from "./offices.js"
+
 //Obtener cliente por codigo
 export const getClientByCode =  async(codigo) =>{
     let res = await fetch(`http://localhost:5501/clients?client_code=${codigo}`)
@@ -101,5 +105,28 @@ export const getAllClientsNameAndManagerNameWithoutPayments = async() =>{
     }
 
     return clientesSinPago
-    
+}
+
+// 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+
+export const getAllClientsNameManagerNameAndCityIfHavePayments = async () =>{
+    let resPagos = await(await fetch("http://localhost:5506/payments")).json()
+    let codigosClientes = new Set()
+    let data = []
+
+    for(let pago of resPagos){
+        codigosClientes.add(pago.code_client)
+    }
+
+    for(let codCliente of codigosClientes){
+        let [cliente] = await getClientByCode(codCliente)
+        let [manager] = await getEmployeeByCode(cliente.code_employee_sales_manager)
+        let [oficina] = await getOfficeByCode(manager.code_office)
+        data.push({
+            client_name: cliente.client_name,
+            employee_fullname: `${manager.name} ${manager.lastname1} ${manager.lastname2}`,
+            employee_city: oficina.city
+        })
+    }
+    return data
 }

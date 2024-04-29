@@ -1,3 +1,9 @@
+export const getOfficeByCode = async (codigo) =>{
+    let res = await fetch(`http://localhost:5505/offices?code_office=${codigo}`)
+    let data = await res.json()
+    return data
+}
+
 //1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
 export const getAllOficceAndCodeCity = async () => {
     let res = await fetch("http://localhost:5505/offices")
