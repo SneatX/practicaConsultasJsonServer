@@ -1,15 +1,11 @@
+import {
+    getEmployeeByCode
+} from "./employees.js"
+
 //Obtener cliente por codigo
 export const getClientByCode =  async(codigo) =>{
     let res = await fetch(`http://localhost:5501/clients?client_code=${codigo}`)
     let cliente = await res.json()
-    return cliente
-}
-
-//Obtener cliente por codigo
-export const getEmployeeByCode =  async(codigo) =>{
-    let res = await fetch(`http://localhost:5503/employee?employee_code=${codigo}`)
-    let cliente = await res.json()
-
     return cliente
 }
 
@@ -54,4 +50,34 @@ export const getAllNameOfClientAndManager = async() =>{
     });
     listaClientes = await Promise.all(listaClientes);
     return listaClientes
+}
+
+//2. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
+
+export const getClientsWithPaymentsNameAndManagerNames = async() =>{
+    let pagos = await fetch("http://localhost:5506/payments")
+    let dataPagos = await pagos.json()
+    let codigosClientes = new Set()
+    let clientesConPagos = []
+    for(let i = 0; i < dataPagos.length; i++){
+        let pago = dataPagos[i]
+        codigosClientes.add(pago.code_client)
+    }
+
+    for(let i of codigosClientes){
+        let [cliente] = await getClientByCode(i)
+        let [empledo] = await getEmployeeByCode(cliente.code_employee_sales_manager)
+        clientesConPagos.push({
+            client_name: cliente.client_name,
+            employee_fullname: `${empledo.name} ${empledo.lastname1} ${empledo.lastname2}`
+        })
+    }
+
+    return clientesConPagos
+}
+
+export const getClientAndManagerByCode = async (cod) =>{
+    let resCliente = await fetch(`http://localhost:5501/clients?client_code=${cod}`)
+    let cliente = await resCliente.json()
+    return  cliente
 }

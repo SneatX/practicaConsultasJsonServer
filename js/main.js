@@ -12,7 +12,8 @@ import{
 import{
     getClientsNameFromSpain,
     getAllClientsFromMadridWithManagerCode11or30,
-    getAllNameOfClientAndManager
+    getAllNameOfClientAndManager,
+    getClientsWithPaymentsNameAndManagerNames
 } from "./modules/client.js"
 
 import {
@@ -66,7 +67,11 @@ import {
 //console.log(await getAllClientsFromMadridWithManagerCode11or30())
 
 
-console.log(await getAllNameOfClientAndManager())
+//console.log(await getAllNameOfClientAndManager())
+
+console.log(await getClientsWithPaymentsNameAndManagerNames())
+
+
 
 
 
