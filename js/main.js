@@ -79,7 +79,7 @@ import {
 
 //console.log(await getAllClientsNameManagerNameAndCityIfHavePayments())
 
-console.log(await getAllClientsNameManagerNameAndCityIfNotHavePayments())
+//console.log(await getAllClientsNameManagerNameAndCityIfNotHavePayments())
 
 
 
