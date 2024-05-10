@@ -2,7 +2,11 @@ import {
     getAllClientsFromMadridWithManagerCode11or30, 
     getClientsEmploy,
     getAllNameOfClientAndManager,
-    getClientsWithPaymentsNameAndManagerNames
+    getClientsWithPaymentsNameAndManagerNames,
+    getAllClientsNameAndManagerNameWithoutPayments,
+    getAllClientsNameManagerNameAndCityIfHavePayments,
+    getAllClientsNameManagerNameAndCityIfNotHavePayments
+
 } from "../modules/client.js";
 import {
     getAllEmployNotClients 
@@ -16,6 +20,10 @@ export class Mycard extends HTMLElement{
             <link rel="stylesheet" href="../css/myCard.css">  
         `
     }
+
+    //Clientes - clients
+
+
     async getClientsEmployDesign(){
         let data = await getClientsEmploy();
         data.forEach(val => {
@@ -34,6 +42,7 @@ export class Mycard extends HTMLElement{
             `;
         });
     }
+    
     async getAllClientsFromMadridWithManagerCode11or30Design(){
         let data = await getAllClientsFromMadridWithManagerCode11or30();
         data.forEach(val => {
@@ -59,6 +68,107 @@ export class Mycard extends HTMLElement{
             `;
         });
     }
+
+    async getAllNameOfClientAndManagerDesign(){
+        let data = await getAllNameOfClientAndManager()
+        data.forEach(val =>{
+            this.shadowRoot.innerHTML += /*html*/`
+
+                <div class="report__card">
+                <div class="card__title">
+                    <div>${val.client_name}</div>
+                </div>
+                <div class="card__body">
+                    <div class="body__marck">
+                        <p><b>Nombre empleado: </b> ${val.manager_name}</p>
+                        <p><b>Apellidos empleado: </b>${val.manager_lastnames}</p>
+                    </div>
+                </div>
+            </div>
+            `
+        })
+    }
+
+    async getClientsWithPaymentsNameAndManagerNamesDesign(){
+        let data = await getClientsWithPaymentsNameAndManagerNames()
+        data.forEach(val =>{
+            this.shadowRoot.innerHTML += /*html*/`
+
+                <div class="report__card">
+                <div class="card__title">
+                    <div>${val.client_name}</div>
+                </div>
+                <div class="card__body">
+                    <div class="body__marck">
+                        <p><b>Nombre empleado: </b> ${val.employee_fullname }</p>
+                    </div>
+                </div>
+            </div>
+            `
+        })
+    }
+
+    async getAllClientsNameAndManagerNameWithoutPaymentsDesign(){
+        let data = await getAllClientsNameAndManagerNameWithoutPayments()
+        data.forEach(val =>{
+            this.shadowRoot.innerHTML += /*html*/`
+
+                <div class="report__card">
+                <div class="card__title">
+                    <div>${val.client_name}</div>
+                </div>
+                <div class="card__body">
+                    <div class="body__marck">
+                        <p><b>Nombre empleado: </b> ${val.employee_fullname }</p>
+                    </div>
+                </div>
+            </div>
+            `
+        })
+    }
+
+    async getAllClientsNameManagerNameAndCityIfHavePaymentsDesign(){
+        let data = await getAllClientsNameManagerNameAndCityIfHavePayments()
+        data.forEach(val =>{
+            this.shadowRoot.innerHTML += /*html*/`
+
+                <div class="report__card">
+                <div class="card__title">
+                    <div>${val.client_name}</div>
+                </div>
+                <div class="card__body">
+                    <div class="body__marck">
+                        <p><b>Nombre empleado: </b> ${val.employee_fullname }</p>
+                        <p><b>Ciudad empleado: </b> ${val.employee_city}</p>
+                    </div>
+                </div>
+            </div>
+            `
+        })
+    }
+    
+    async getAllClientsNameManagerNameAndCityIfNotHavePaymentsDesign(){
+        let data = await getAllClientsNameManagerNameAndCityIfNotHavePayments()
+        data.forEach(val =>{
+            this.shadowRoot.innerHTML += /*html*/`
+
+                <div class="report__card">
+                <div class="card__title">
+                    <div>${val.client_name}</div>
+                </div>
+                <div class="card__body">
+                    <div class="body__marck">
+                        <p><b>Nombre empleado: </b> ${val.employee_fullname }</p>
+                        <p><b>Ciudad empleado: </b> ${val.employee_city}</p>
+                    </div>
+                </div>
+            </div>
+            `
+        })
+    }
+
+    //Empleados - employees
+
     async getAllEmployNotClientsDesign(){
         let data = await getAllEmployNotClients();
         data.forEach(val => {
@@ -82,45 +192,6 @@ export class Mycard extends HTMLElement{
             `
         })
     }
-    async getAllNameOfClientAndManagerDesign(){
-        let data = await getAllNameOfClientAndManager()
-        data.forEach(val =>{
-            this.shadowRoot.innerHTML += /*html*/`
-
-                <div class="report__card">
-                <div class="card__title">
-                    <div>${val.client_name}</div>
-                </div>
-                <div class="card__body">
-                    <div class="body__marck">
-                        <p><b>Nombre empleado: </b> ${val.manager_name}</p>
-                        <p><b>Apellidos empleado: </b>${val.manager_lastnames}</p>
-                    </div>
-                </div>
-            </div>
-            `
-        })
-    }
-
-    async getClientsWithPaymentsNameAndManagerNamesDesign(){
-        let data = await getClientsWithPaymentsNameAndManagerNames()
-        console.log(data)
-        data.forEach(val =>{
-            this.shadowRoot.innerHTML += /*html*/`
-
-                <div class="report__card">
-                <div class="card__title">
-                    <div>${val.client_name}</div>
-                </div>
-                <div class="card__body">
-                    <div class="body__marck">
-                        <p><b>Nombre empleado: </b> ${val.employee_fullname }</p>
-                    </div>
-                </div>
-            </div>
-            `
-        })
-    }
 
 
     static get observedAttributes() {
@@ -131,6 +202,10 @@ export class Mycard extends HTMLElement{
         if(name=="logic" && now=="client_16") this.getAllClientsFromMadridWithManagerCode11or30Design()
         if(name=="logic" && now=="client_1M") this.getAllNameOfClientAndManagerDesign()
         if(name=="logic" && now=="client_2M") this.getClientsWithPaymentsNameAndManagerNamesDesign()
+        if(name=="logic" && now=="client_3M") this.getAllClientsNameAndManagerNameWithoutPaymentsDesign()
+        if(name=="logic" && now=="client_4M") this.getAllClientsNameManagerNameAndCityIfHavePaymentsDesign()
+        if(name=="logic" && now=="client_5M") this.getAllClientsNameManagerNameAndCityIfNotHavePaymentsDesign()
+
 
         if(name=="logic" && now=="employ_12") this.getAllEmployNotClientsDesign()
     }

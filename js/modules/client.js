@@ -227,12 +227,5 @@ export const getClientsEmploy = async() =>{
         dataUpdate.name_employee = `${name} ${lastname1} ${lastname2}`
         clients[i] = dataUpdate
     }
-    // [
-    //     {
-    //         city: "San Francisco"
-    //         client_name : "GoldFish Garden"
-    //         name_employee: "Walter Santiago Sanchez Lopez"
-    //     }
-    // ]
     return clients;
 }
