@@ -51,7 +51,6 @@ export const getAllNameOfClientAndManager = async() =>{
 
     let listaClientes = dataClientes.map(async (cliente) => {
         let [dataEmployee] = await getEmployeeByCode(cliente.code_employee_sales_manager)
-        console.log(dataEmployee)
         let dicc = {
             client_name:cliente.client_name,
             manager_name: dataEmployee.name,
