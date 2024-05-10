@@ -6,6 +6,13 @@ import {
     getOfficeByCode
 } from "./offices.js"
 
+//Obtener todos los clientes
+export const getAllClients = async() =>{
+    let res = await fetch(`http://localhost:5501/clients`);
+    let data = await res.json();
+    return data;
+}
+
 //Obtener cliente por codigo
 export const getClientByCode =  async(codigo) =>{
     let res = await fetch(`http://localhost:5501/clients?client_code=${codigo}`)

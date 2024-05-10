@@ -1,3 +1,13 @@
+import { getAllClients } from "./client.js"
+
+
+//Obtener Todos los empleados
+export const getAllEmploy = async() =>{
+    let res = await fetch(`http://localhost:5503/employee`);
+    let data = await res.json();
+    return data;
+}
+
 //Obtener empleado por codigo
 export const getEmployeeByCode =  async(codigo) =>{
     let res = await fetch(`http://localhost:5503/employee?employee_code=${codigo}`)
@@ -74,7 +84,7 @@ export const getAllEmployNotClients = async()=>{
     let code = codes.reduce((resultado, array) => resultado.filter(elemento => !array.includes(elemento)).concat(array.filter(elemento => !resultado.includes(elemento))))
     let employees = []
     for (let i = 0; i < code.length; i++) {
-        let searchingEmployees = async() => await getEmployByCode(code[i])
+        let searchingEmployees = async() => await getEmployeeByCode(code[i])
         let [employee] = await searchingEmployees()
         if(!employee.code_boss) {
             let {
@@ -85,7 +95,7 @@ export const getAllEmployNotClients = async()=>{
             employees.push(employeeUpdate)
             continue
         }
-        let searchedBoss = async() => await getEmployByCode(employee.code_boss)
+        let searchedBoss = async() => await getEmployeeByCode(employee.code_boss)
         let [boos] = await searchedBoss()
         let {
             code_boss,
