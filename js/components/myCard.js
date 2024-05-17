@@ -23,6 +23,11 @@ import {
     getAllCityAndMobileInSpain
 } from "../modules/offices.js";
 
+import { 
+    getAllPaypalPaymentsIfYearIs2008,
+    getAllPosiblePayments
+ } from "../modules/payments.js";
+
 getAllOficceAndCodeCity
 
 export class Mycard extends HTMLElement {
@@ -334,6 +339,48 @@ export class Mycard extends HTMLElement {
         })
     } 
 
+     //Payments - Pagos
+
+    async getAllPaypalPaymentsIfYearIs2008Design(){
+        let data = await getAllPaypalPaymentsIfYearIs2008()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.id}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Code client: </b> ${val.code_client}</p>
+                            <p><b>Date payment: </b> ${val.date_payment}</p>
+                            <p><b>Method: </b> ${val.payment}</p>
+                            <p><b>ID transaction: </b> ${val.id_transaction}</p>
+                            <p><b>Total: </b> ${val.total}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    } 
+
+    async getAllPosiblePaymentsDesign(){
+        let data = await getAllPosiblePayments()
+        console.log(data)
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    } 
 
     static get observedAttributes() {
         return ["logic"];
@@ -359,6 +406,10 @@ export class Mycard extends HTMLElement {
          /*OFFICES*/
         if (name == "logic" && now == "office_1") this.getAllOficceAndCodeCityDesign()
         if (name == "logic" && now == "office_2") this.getAllCityAndMobileInSpainDesign()
-
+         
+        /*PAYMENTS*/
+        if (name == "logic" && now == "payment_13") this.getAllPaypalPaymentsIfYearIs2008Design()
+        if (name == "logic" && now == "payment_14") this.getAllPosiblePaymentsDesign()
+    
     }
 }
