@@ -9,9 +9,14 @@ import {
     getClientsNameFromSpain
 
 } from "../modules/client.js";
+
 import {
+    getFullNameAndEmails,
+    getFullNameAndEmailBoss,
+    getFullNameIfNotRepresentanteVentas,
     getAllEmployNotClients
 } from "../modules/employees.js";
+
 import {
     getRetardedDeliveryClients
 } from "../modules/client.js"
@@ -189,7 +194,6 @@ export class Mycard extends HTMLElement {
 
     async getRetardedDeliveryClientsDesign(){
         let data = await getRetardedDeliveryClients()
-        console.log(data)
          data.forEach(val => {
              this.shadowRoot.innerHTML += /*html*/`
 
@@ -208,6 +212,61 @@ export class Mycard extends HTMLElement {
     }
 
     //Empleados - employees
+
+    async getFullNameAndEmailsDesign(){
+        let data = await getFullNameAndEmails()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.name} ${val.fullLastName}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Email: </b> ${val.email}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
+
+    async getFullNameAndEmailBossDesign(){
+        let data = await getFullNameAndEmailBoss()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.name} ${val.lastname}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Position: </b> ${val.position}</p>
+                            <p><b>Email: </b> ${val.email}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
+
+    async getFullNameIfNotRepresentanteVentasDesign(){
+        let data = await getFullNameIfNotRepresentanteVentas()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.name} ${val.lastname}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Position: </b> ${val.position}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
 
     async getAllEmployNotClientsDesign() {
         let data = await getAllEmployNotClients();
@@ -238,6 +297,7 @@ export class Mycard extends HTMLElement {
         return ["logic"];
     }
     attributeChangedCallback(name, old, now) {
+        /*CLIENTS*/
         if (name == "logic" && now == "client_6") this.getClientsNameFromSpainDesign()
         if (name == "logic" && now == "client_16") this.getAllClientsFromMadridWithManagerCode11or30Design()
         if (name == "logic" && now == "client_1M") this.getAllNameOfClientAndManagerDesign()
@@ -248,7 +308,10 @@ export class Mycard extends HTMLElement {
         if (name == "logic" && now == "client_7M") this.getClientsEmployDesign()
         if (name == "logic" && now == "client_10M") this.getRetardedDeliveryClientsDesign()
 
-
+        /*EMPLOYEES*/
+        if (name == "logic" && now == "employ_3") this.getFullNameAndEmailsDesign()
+        if (name == "logic" && now == "employ_4") this.getFullNameAndEmailBossDesign()
+        if (name == "logic" && now == "employ_5") this.getFullNameIfNotRepresentanteVentasDesign()
         if (name == "logic" && now == "employ_12") this.getAllEmployNotClientsDesign()
     }
 }
