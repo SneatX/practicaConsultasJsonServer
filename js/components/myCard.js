@@ -26,7 +26,11 @@ import {
 import { 
     getAllPaypalPaymentsIfYearIs2008,
     getAllPosiblePayments
- } from "../modules/payments.js";
+} from "../modules/payments.js";
+import { 
+    getAllOrnamentalesProductsWithMoreOf100Units 
+} from "../modules/product.js";
+
 
 getAllOficceAndCodeCity
 
@@ -339,7 +343,7 @@ export class Mycard extends HTMLElement {
         })
     } 
 
-     //Payments - Pagos
+    //Payments - Pagos
 
     async getAllPaypalPaymentsIfYearIs2008Design(){
         let data = await getAllPaypalPaymentsIfYearIs2008()
@@ -365,7 +369,6 @@ export class Mycard extends HTMLElement {
 
     async getAllPosiblePaymentsDesign(){
         let data = await getAllPosiblePayments()
-        console.log(data)
         data.forEach(val => {
             this.shadowRoot.innerHTML += /*html*/`
                 <div class="report__card">
@@ -381,6 +384,32 @@ export class Mycard extends HTMLElement {
             `
         })
     } 
+
+    //Products - Productos
+
+    async getAllOrnamentalesProductsWithMoreOf100UnitsDesign(){
+        let data = await getAllOrnamentalesProductsWithMoreOf100Units()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.name} # ${val.id}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Code product: </b> ${val.code_product}</p>
+                            <p><b>Dimension: </b> ${val.dimension}</p>
+                            <p><b>Gama: </b> ${val.gama}</p>
+                            <p><b>Price provider: </b> ${val.price_provider}</p>
+                            <p><b>Price sale: </b> ${val.price_sale}</p>
+                            <p><b>Provider: </b> ${val.provider}</p>
+                            <p><b>Stock: </b> ${val.stock}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
 
     static get observedAttributes() {
         return ["logic"];
@@ -410,6 +439,9 @@ export class Mycard extends HTMLElement {
         /*PAYMENTS*/
         if (name == "logic" && now == "payment_13") this.getAllPaypalPaymentsIfYearIs2008Design()
         if (name == "logic" && now == "payment_14") this.getAllPosiblePaymentsDesign()
-    
+           
+        /*PRODUCTS*/
+        if (name == "logic" && now == "product_15") this.getAllOrnamentalesProductsWithMoreOf100UnitsDesign()
+        
     }
 }
