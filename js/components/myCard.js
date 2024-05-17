@@ -1,6 +1,7 @@
 import {
     getAllClientsFromMadridWithManagerCode11or30,
     getClientsEmploy,
+    getRetardedDeliveryClients,
     getAllNameOfClientAndManager,
     getClientsWithPaymentsNameAndManagerNames,
     getAllClientsNameAndManagerNameWithoutPayments,
@@ -17,9 +18,12 @@ import {
     getAllEmployNotClients
 } from "../modules/employees.js";
 
-import {
-    getRetardedDeliveryClients
-} from "../modules/client.js"
+import { 
+    getAllOficceAndCodeCity,
+    getAllCityAndMobileInSpain
+} from "../modules/offices.js";
+
+getAllOficceAndCodeCity
 
 export class Mycard extends HTMLElement {
     constructor() {
@@ -292,6 +296,44 @@ export class Mycard extends HTMLElement {
         })
     }
 
+    //Offices - Oficinas
+
+    async getAllOficceAndCodeCityDesign(){
+        let data = await getAllOficceAndCodeCity()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.city}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Code office: </b> ${val.code_office}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    } 
+
+    async getAllCityAndMobileInSpainDesign(){
+        let data = await getAllCityAndMobileInSpain()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.city}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Movil: </b> ${val.movil}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    } 
+
 
     static get observedAttributes() {
         return ["logic"];
@@ -313,5 +355,10 @@ export class Mycard extends HTMLElement {
         if (name == "logic" && now == "employ_4") this.getFullNameAndEmailBossDesign()
         if (name == "logic" && now == "employ_5") this.getFullNameIfNotRepresentanteVentasDesign()
         if (name == "logic" && now == "employ_12") this.getAllEmployNotClientsDesign()
+    
+         /*OFFICES*/
+        if (name == "logic" && now == "office_1") this.getAllOficceAndCodeCityDesign()
+        if (name == "logic" && now == "office_2") this.getAllCityAndMobileInSpainDesign()
+
     }
 }

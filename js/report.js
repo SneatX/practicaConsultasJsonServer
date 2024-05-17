@@ -32,6 +32,12 @@ btn.forEach(val => {
             <my-details logic="employ_12" text="12. Devuelve un listado con los datos de los empleados que no  tienen clientes asociados y el nombre de su jefe asociado"></my-details>
             `;
         }
+        if (e.target.innerHTML == "offices"){
+            report__details.innerHTML = /*html*/`
+            <my-details logic="office_1" text="1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas"></my-details>
+            <my-details logic="office_2" text="2. Devuelve un listado con la ciudad y el teléfono de las oficinas de España."></my-details>
+            `;
+        }
 
     })
 })
