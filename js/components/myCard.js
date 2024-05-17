@@ -12,6 +12,9 @@ import {
 import {
     getAllEmployNotClients
 } from "../modules/employees.js";
+import {
+    getRetardedDeliveryClients
+} from "../modules/client.js"
 
 export class Mycard extends HTMLElement {
     constructor() {
@@ -184,6 +187,26 @@ export class Mycard extends HTMLElement {
         })
     }
 
+    async getRetardedDeliveryClientsDesign(){
+        let data = await getRetardedDeliveryClients()
+        console.log(data)
+         data.forEach(val => {
+             this.shadowRoot.innerHTML += /*html*/`
+
+                 <div class="report__card">
+                 <div class="card__title">
+                     <div>${val.client_name}</div>
+                 </div>
+                 <div class="card__body">
+                     <div class="body__marck">
+                         <p><b>Client code: </b> ${val.client_code}</p>
+                     </div>
+                 </div>
+             </div>
+             `
+         })
+    }
+
     //Empleados - employees
 
     async getAllEmployNotClientsDesign() {
@@ -223,6 +246,7 @@ export class Mycard extends HTMLElement {
         if (name == "logic" && now == "client_4M") this.getAllClientsNameManagerNameAndCityIfHavePaymentsDesign()
         if (name == "logic" && now == "client_5M") this.getAllClientsNameManagerNameAndCityIfNotHavePaymentsDesign()
         if (name == "logic" && now == "client_7M") this.getClientsEmployDesign()
+        if (name == "logic" && now == "client_10M") this.getRetardedDeliveryClientsDesign()
 
 
         if (name == "logic" && now == "employ_12") this.getAllEmployNotClientsDesign()

@@ -6,6 +6,10 @@ import {
     getOfficeByCode
 } from "./offices.js"
 
+import {
+    getRetardedDeliveries,
+} from "./requests.js"
+
 //Obtener todos los clientes
 export const getAllClients = async() =>{
     let res = await fetch(`http://localhost:5501/clients`);
@@ -227,4 +231,36 @@ export const getClientsEmploy = async() =>{
         clients[i] = dataUpdate
     }
     return clients;
+}
+
+// 10. Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
+
+export const getRetardedDeliveryClients = async() =>{
+    let res = await fetch("http://localhost:5501/clients")
+    let data = await res.json();
+    let res2 = await getRetardedDeliveries();
+    let verificador = []
+    let result = []
+    res2.forEach(val=>{
+        data.forEach(val2=>{
+            if(val.code_client == val2.client_code){
+                if(!verificador.includes(val.code_client)){
+                    verificador.push(val.code_client)
+                }
+            }
+            
+        })
+    })
+
+    data.forEach(val =>{
+        verificador.forEach(val2=>{
+            if(val.client_code == val2){
+                result.push({
+                    client_name: val.client_name,
+                    client_code: val.client_code
+                })
+            }
+        })
+    })
+    return result
 }
