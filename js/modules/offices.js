@@ -1,3 +1,6 @@
+import { getAllClientsInFuenlabrada } from "./client.js"
+import {getEmployeesByName, getEmployeeByCode} from "./employees.js"
+
 export const getOfficeByCode = async (codigo) =>{
     let res = await fetch(`http://localhost:5505/offices?code_office=${codigo}`)
     let data = await res.json()
@@ -28,3 +31,4 @@ export const getAllCityAndMobileInSpain = async () =>{
     })
     return dataUpdate
 }
+

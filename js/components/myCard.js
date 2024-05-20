@@ -4,18 +4,27 @@ import {
     getRetardedDeliveryClients,
     getAllNameOfClientAndManager,
     getClientsWithPaymentsNameAndManagerNames,
+    getAllClientsInFuenlabrada,
     getAllClientsNameAndManagerNameWithoutPayments,
     getAllClientsNameManagerNameAndCityIfHavePayments,
     getAllClientsNameManagerNameAndCityIfNotHavePayments,
-    getClientsNameFromSpain
-
+    getClientsNameFromSpain,
+    getAllProductGamaThatAClientRequest,
+    getAllClientsWhoHaventPaid,
+    getAllClientsWhoHaventRequest,
+    getAllClientsWhoHaventPaidAndRequest,
+    getAllClientsWhoHaveRequestedButHaventPaid
+    
+    
 } from "../modules/client.js";
 
 import {
     getFullNameAndEmails,
     getFullNameAndEmailBoss,
     getFullNameIfNotRepresentanteVentas,
-    getAllEmployNotClients
+    getAllEmployNotClients,
+    getEmployeesandBossesnames,
+    getAllEmployeesWithBossNameAndTheBossesNames
 } from "../modules/employees.js";
 
 import { 
@@ -29,7 +38,8 @@ import {
 } from "../modules/payments.js";
 
 import { 
-    getAllOrnamentalesProductsWithMoreOf100Units 
+    getAllOrnamentalesProductsWithMoreOf100Units,
+    getAllProductsThatNeverHasBeenRequested
 } from "../modules/product.js";
 
 import {
@@ -194,6 +204,27 @@ export class Mycard extends HTMLElement {
         })
     }
 
+    async getAllClientsInFuenlabradaDesign(){
+        let data = await getAllClientsInFuenlabrada()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+
+                <div class="report__card">
+                <div class="card__title">
+                    <div>${val.client_name} # ${val.client_code}</div>
+                </div>
+                <div class="card__body">
+                    <div class="body__marck">
+                        <p><b>Ciudad cliente: </b> ${val.city}</p>
+                        <p><b>Empleado encargado: </b> ${val.code_employee_sales_manager}</p>
+                        <p><b>Telefono cliente: </b> ${val.phone}</p>
+                    </div>
+                </div>
+            </div>
+            `
+        })
+    }
+
     async getAllClientsNameManagerNameAndCityIfNotHavePaymentsDesign() {
         let data = await getAllClientsNameManagerNameAndCityIfNotHavePayments()
         data.forEach(val => {
@@ -233,6 +264,109 @@ export class Mycard extends HTMLElement {
          })
     }
 
+    async getAllProductGamaThatAClientRequestDesign() {
+        let data = await getAllProductGamaThatAClientRequest()
+         data.forEach(val => {
+             this.shadowRoot.innerHTML += /*html*/`
+
+                 <div class="report__card">
+                 <div class="card__title">
+                     <div>${val.client_name}</div>
+                 </div>
+                 <div class="card__body">
+                     <div class="body__marck">
+                     </div>
+                 </div>
+             </div>
+             `
+         })
+    }
+
+    async getAllClientsWhoHaventPaidDesign() {
+        let data = await getAllClientsWhoHaventPaid()
+         data.forEach(val => {
+             this.shadowRoot.innerHTML += /*html*/`
+
+                 <div class="report__card">
+                 <div class="card__title">
+                     <div>${val.client_name}</div>
+                 </div>
+                 <div class="card__body">
+                     <div class="body__marck">
+                        <p><b>Ciudad cliente: </b> ${val.city}</p>
+                        <p><b>Empleado encargado: </b> ${val.code_employee_sales_manager}</p>
+                        <p><b>Telefono cliente: </b> ${val.phone}</p>
+                     </div>
+                 </div>
+             </div>
+             `
+         })
+    }
+
+    async getAllClientsWhoHaventRequestDesign() {
+        let data = await getAllClientsWhoHaventRequest()
+         data.forEach(val => {
+             this.shadowRoot.innerHTML += /*html*/`
+
+                 <div class="report__card">
+                 <div class="card__title">
+                     <div>${val.client_name}</div>
+                 </div>
+                 <div class="card__body">
+                     <div class="body__marck">
+                        <p><b>Ciudad cliente: </b> ${val.city}</p>
+                        <p><b>Empleado encargado: </b> ${val.code_employee_sales_manager}</p>
+                        <p><b>Telefono cliente: </b> ${val.phone}</p>
+                     </div>
+                 </div>
+             </div>
+             `
+         })
+    }
+
+    async getAllClientsWhoHaventPaidAndRequestDesign() {
+        let data = await getAllClientsWhoHaventPaidAndRequest()
+         data.forEach(val => {
+             this.shadowRoot.innerHTML += /*html*/`
+
+                 <div class="report__card">
+                 <div class="card__title">
+                     <div>${val.client_name}</div>
+                 </div>
+                 <div class="card__body">
+                     <div class="body__marck">
+                        <p><b>Ciudad cliente: </b> ${val.city}</p>
+                        <p><b>Empleado encargado: </b> ${val.code_employee_sales_manager}</p>
+                        <p><b>Telefono cliente: </b> ${val.phone}</p>
+                     </div>
+                 </div>
+             </div>
+             `
+         })
+    }
+
+    async getAllClientsWhoHaveRequestedButHaventPaidDesign() {
+        let data = await getAllClientsWhoHaveRequestedButHaventPaid()
+         data.forEach(val => {
+             this.shadowRoot.innerHTML += /*html*/`
+
+                 <div class="report__card">
+                 <div class="card__title">
+                     <div>${val.client_name}</div>
+                 </div>
+                 <div class="card__body">
+                     <div class="body__marck">
+                        <p><b>Ciudad cliente: </b> ${val.city}</p>
+                        <p><b>Empleado encargado: </b> ${val.code_employee_sales_manager}</p>
+                        <p><b>Telefono cliente: </b> ${val.phone}</p>
+                     </div>
+                 </div>
+             </div>
+             `
+         })
+    }
+
+    
     //Empleados - employees
 
     async getFullNameAndEmailsDesign(){
@@ -290,6 +424,23 @@ export class Mycard extends HTMLElement {
         })
     }
 
+    async getEmployeesandBossesnamesDesign(){
+        let data = await getEmployeesandBossesnames()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.sales_manager_complete_name} </div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
+
     async getAllEmployNotClientsDesign() {
         let data = await getAllEmployNotClients();
         data.forEach(val => {
@@ -307,6 +458,26 @@ export class Mycard extends HTMLElement {
                             <p><b>Jefe encargado: </b>${val.name_boss}</p>
                             <p><b>Numero de extencion: </b>${val.extension}</p>
                             <p><b>Correo electronico: </b>${val.email}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
+
+    async getAllEmployeesWithBossNameAndTheBossesNamesDesign() {
+        let data = await getAllEmployeesWithBossNameAndTheBossesNames()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+            
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.name} ${val.lastname1} ${val.lastname2} # ${val.employee_code}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Code office: </b> ${val.code_office}</p>
+                            <p><b>Position: </b> ${val.position}</p>
                         </div>
                     </div>
                 </div>
@@ -351,6 +522,7 @@ export class Mycard extends HTMLElement {
             `
         })
     } 
+
 
     //Payments - Pagos
 
@@ -420,7 +592,31 @@ export class Mycard extends HTMLElement {
         })
     }
 
-    //Products - Productos
+    async getAllProductsThatNeverHasBeenRequestedDesign(){
+        let data = await getAllProductsThatNeverHasBeenRequested()
+        data.forEach(val => {
+            this.shadowRoot.innerHTML += /*html*/`
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>${val.name} # ${val.id}</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Code product: </b> ${val.code_product}</p>
+                            <p><b>dimension: </b> ${val.dimension}</p>
+                            <p><b>Gama: </b> ${val.gama}</p>
+                            <p><b>Provider: </b> ${val.provider}</p>
+                            <p><b>Stock: </b> ${val.stock}</p>
+
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    }
+    
+
+    //REQUESTS - Pedidos
 
     async getAllPosibleRequestsStatusDesign(){
         let data = await getAllPosibleRequestsStatus()
@@ -525,7 +721,6 @@ export class Mycard extends HTMLElement {
     
     async getAllRequestIfDeliveyInJanuaryDesign(){
         let data = await getAllRequestIfDeliveyInJanuary()
-        console.log(data)
         data.forEach(val => {
             this.shadowRoot.innerHTML += /*html*/`
                 <div class="report__card">
@@ -547,6 +742,8 @@ export class Mycard extends HTMLElement {
             `
         })
     } 
+
+    
     
     
     
@@ -566,13 +763,21 @@ export class Mycard extends HTMLElement {
         if (name == "logic" && now == "client_4M") this.getAllClientsNameManagerNameAndCityIfHavePaymentsDesign()
         if (name == "logic" && now == "client_5M") this.getAllClientsNameManagerNameAndCityIfNotHavePaymentsDesign()
         if (name == "logic" && now == "client_7M") this.getClientsEmployDesign()
+        if (name == "logic" && now == "client_6M") this.getAllClientsInFuenlabradaDesign()
         if (name == "logic" && now == "client_10M") this.getRetardedDeliveryClientsDesign()
+        if (name == "logic" && now == "client_11M") this.getAllProductGamaThatAClientRequestDesign()
+        if (name == "logic" && now == "client_1E") this.getAllClientsWhoHaventPaidDesign()
+        if (name == "logic" && now == "client_2E") this.getAllClientsWhoHaventRequestDesign()
+        if (name == "logic" && now == "client_3E") this.getAllClientsWhoHaventPaidAndRequestDesign()
+        if (name == "logic" && now == "client_11E") this.getAllClientsWhoHaveRequestedButHaventPaidDesign()
 
 
         /*EMPLOYEES*/
         if (name == "logic" && now == "employ_3") this.getFullNameAndEmailsDesign()
         if (name == "logic" && now == "employ_4") this.getFullNameAndEmailBossDesign()
         if (name == "logic" && now == "employ_5") this.getFullNameIfNotRepresentanteVentasDesign()
+        if (name == "logic" && now == "employ_8M") this.getEmployeesandBossesnamesDesign()
+        if (name == "logic" && now == "employ_9M") this.getAllEmployeesWithBossNameAndTheBossesNamesDesign()
         if (name == "logic" && now == "employ_12") this.getAllEmployNotClientsDesign()
     
          /*OFFICES*/
@@ -585,6 +790,7 @@ export class Mycard extends HTMLElement {
            
         /*PRODUCTS*/
         if (name == "logic" && now == "product_15") this.getAllOrnamentalesProductsWithMoreOf100UnitsDesign()
+        if (name == "logic" && now == "product_8E") this.getAllProductsThatNeverHasBeenRequestedDesign()
 
         /*REQUESTS*/
         if (name == "logic" && now == "request_7") this.getAllPosibleRequestsStatusDesign()

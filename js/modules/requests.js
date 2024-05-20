@@ -28,6 +28,14 @@ export const getRetardedDeliveries = async() =>{
     return result
 }
 
+// clientes que han hecho pedidos
+
+export const getAllClientsWhoRequest = async(code)=>{
+    let res = await fetch(`http://localhost:5507/requests?code_client=${code}`)
+    let data =await res.json();
+    return data;
+}
+
 //7. Devuelve un listado con los distintos estados por los que puede pasar un pedido.
 export const getAllPosibleRequestsStatus = async() =>{
     let res = await fetch("http://localhost:5507/requests")
